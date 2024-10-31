@@ -1,17 +1,17 @@
-struct Vector2 {
+
+＊構造体
+---------*/
+/*2次元ベクトル*/
+typedef struct Vecter2 {
 	float x;
 	float y;
-};
-
-typedef struct {
-	Vector2 pos;
-	float speed;
-	Vector2 size;
-}Player;
-typedef struct
-{
-	Vector2 pos;
-	float speed;
-	float radius;
-	int isBulletShot;
-}Bullet;
+} Vector2;
+/*プレイヤー*/
+typedef struct Player {
+	Vecter2 screenPos{};
+	Vecter2 size{};
+	Vecter2 width{};
+	Vecter2 velocity{};
+	int isAlive{};
+	int handle{};
+} Box;
