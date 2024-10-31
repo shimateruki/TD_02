@@ -2,18 +2,18 @@
 void playerMove(Box& player, char keys[]) {
 	if (keys[DIK_A])
 	{
-		player.pos.x -= player.speed;
+		player.screenPos.x -= player.velocity.x;
 	}
 	if (keys[DIK_D])
 	{
-		player.pos.x += player.speed;
+		player.screenPos.x += player.velocity.x;
 	}
 	if (keys[DIK_W])
 	{
-		player.pos.y -= player.speed;
+		player.screenPos.y -= player.velocity.y;
 	}
 	if (keys[DIK_S])
 	{
-		player.pos.y += player.speed;
+		player.screenPos.y += player.velocity.y;
 	}
 }

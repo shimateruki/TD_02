@@ -1,6 +1,4 @@
 
-＊構造体
----------*/
 /*2次元ベクトル*/
 typedef struct Vecter2 {
 	float x;

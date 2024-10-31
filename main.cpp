@@ -26,9 +26,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	//プレイヤーの描画
 
 	Player player;
-	player.pos = { 600, 400 };
+	player.screenPos = { 600, 400 };
 	player.size = { 32.0f, 32.0f };
-	player.speed = 5;
+	player.velocity = { 5, 5 };
 
 	// ウィンドウの×ボタンが押されるまでループ
 	while (Novice::ProcessMessage() == 0) {
@@ -47,9 +47,13 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		switch (scene)
 		{
 		case TITLE:
+			if (keys[DIK_SPACE])
+			{
+				scene = GAMEPLAY;
+			}
 			break;
 		case GAMEPLAY:
-			Novice::DrawBox(int(player.pos.x), int(player.pos.y), int(player.size.x), int(player.size.y), 0.0f, WHITE, kFillModeSolid);
+			playerMove(player, keys);
 			break;
 		case GAMECLEAR:
 			break;
@@ -70,7 +74,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		case TITLE:
 			break;
 		case GAMEPLAY:
-			Novice::DrawBox(int(player.pos.x), int(player.pos.y), int(player.size.x), int(player.size.y), 0.0f, WHITE, kFillModeSolid);
+			Novice::DrawBox(int(player.screenPos.x), int(player.screenPos.y), int(player.size.x), int(player.size.y), 0.0f, WHITE, kFillModeSolid);
 			break;
 		case GAMECLEAR:
 			break;
