@@ -1,6 +1,7 @@
 #include <Novice.h>
 #include "struct.h"
 #include "move.h"
+#include "hitBox.h"
 const char kWindowTitle[] = "LC1C_09_シマ_テルキ_タイトル";
 
 // Windowsアプリでのエントリーポイント(main関数)
@@ -22,6 +23,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		GAMECLEAR,
 		GAMEOVER,
 	};
+
 	int scene = TITLE;
 	//プレイヤーの描画
 
@@ -35,8 +37,20 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	Box attckbutton;
 	attckbutton.screenPos = { 550.0f, 550.0f };
 	attckbutton.size = { 200.0f, 100.0f };
+	int attckTimer = 0;
+	int isAttckTimer = false;
 
+	//セレクトするための変数
+	int isTitle = false;
+	int isReturn = true;
+	
+	//画像読み込み
+	int playerDownImages = Novice::LoadTexture("./Resoucers/images/playerDown.png");
+	int playerUpimages	 = Novice::LoadTexture("./Resoucers/images/playerUp.png");
+	int playerLeftImages = Novice::LoadTexture("./Resoucers/images/playerLeft.png");
+	int playerRightImages = Novice::LoadTexture("./Resoucers/images/playerRight.png");
 
+	
 	// ウィンドウの×ボタンが押されるまでループ
 	while (Novice::ProcessMessage() == 0) {
 		// フレームの開始
@@ -54,6 +68,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		switch (scene)
 		{
 		case TITLE:
+
+			//spaceキーを押すとシーンがgameplayに切り替わる
+
 			if (keys[DIK_SPACE])
 			{
 				scene = GAMEPLAY;
@@ -61,13 +78,79 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			break;
 		case GAMEPLAY:
 
+
+		//移動処理
+
 		playerMove(player, keys);
-	
-			
+
+		//攻撃コマンドのところでspaceキーを押すとフラグがtrueになり
+
+		if (isAttckTimer)
+		{
+			attckTimer++;
+		}
+
+		//タイマーが300になるとコマンドの描画を再度出現させる
+
+		 if (attckTimer >300)
+		{
+			isAttckTimer = false;
+			attckTimer = 0;
+		}
+
+		//プレイヤーとコマンドの当たり判定
+
+		if (IsHitDetection(player.screenPos.x, player.screenPos.y, player.size.x, player.size.y,
+			attckbutton.screenPos.x, attckbutton.screenPos.y, attckbutton.size.x, attckbutton.size.y))
+		{
+			if (keys[DIK_SPACE])
+			{
+				isAttckTimer = true;
+			}
+		}
+
 			break;
 		case GAMECLEAR:
+
+			//spaceキーを押すとタイトルへ戻る
+			if (keys[DIK_SPACE])
+			{
+				scene = TITLE;
+			}
+
 			break;
 		case GAMEOVER:
+			//リスタートかタイトルへ戻るかを選ぶ処理
+
+			if (keys[DIK_A])
+			{
+				isReturn = false;
+				isTitle = true;
+			}
+			else if (keys[DIK_S])
+			{
+				isReturn = true;
+				isTitle = false;
+			}
+
+			//リスタート
+			if (isReturn)
+			{
+				if (keys[DIK_SPACE])
+				{
+					scene = GAMEPLAY;
+				}
+			}
+
+			//タイトルへ戻る
+			else if (isTitle)
+			{
+				if (keys[DIK_SPACE])
+				{
+					scene = TITLE;
+				}
+			}
+
 			break;
 		}
 
@@ -87,16 +170,42 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 			//プレイヤーの描画
 
-			if (player.isAlive)
+			//下向き
+			if (player.isAlive &&vector ==DOWN)
 			{
-				Novice::DrawBox(int(player.screenPos.x), int(player.screenPos.y), int(player.size.x), int(player.size.y), 0.0f, WHITE, kFillModeSolid);
+				Novice::DrawSprite(int(player.screenPos.x), int(player.screenPos.y), playerDownImages, 1.0f, 1.0f, 0.0f, WHITE);
 			}
+
+			//上向き
+			if(player.isAlive && vector == UP)
+			{
+				Novice::DrawSprite(int(player.screenPos.x), int(player.screenPos.y), playerUpimages, 1.0f, 1.0f, 0.0f, WHITE);
+			}
+
+			//左向き
+			if (player.isAlive && vector == LEFT)
+			{
+				Novice::DrawSprite(int(player.screenPos.x), int(player.screenPos.y), playerLeftImages, 1.0f, 1.0f, 0.0f, WHITE);
+			}
+
+			//右向き
+			if (player.isAlive && vector == RIGHT)	
+			{
+				Novice::DrawSprite(int(player.screenPos.x), int(player.screenPos.y), playerRightImages, 1.0f, 1.0f, 0.0f, WHITE);
+			}
+
+
+
+
 		
 
 			//プレイヤーの攻撃コマンド描画
 
-			Novice::DrawBox(int(attckbutton.screenPos.x), int(attckbutton.screenPos.y), int(attckbutton.size.x), int(attckbutton.size.y),0.0f, WHITE, kFillModeSolid);
-	
+			if (!isAttckTimer)
+			{
+				Novice::DrawBox(int(attckbutton.screenPos.x), int(attckbutton.screenPos.y), int(attckbutton.size.x), int(attckbutton.size.y), 0.0f, WHITE, kFillModeSolid);
+			}
+		
 			break;
 		case GAMECLEAR:
 			break;

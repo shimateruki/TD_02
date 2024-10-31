@@ -11,6 +11,7 @@ int IsHitDetection(float playerPosX, float playerPosY, float playerWidthX, float
 	{
 		if (bullety1 < playery2 && playery1 < bullety2)
 		{
+
 			return true;
 		}
 	}
