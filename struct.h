@@ -1,13 +1,12 @@
-#pragma once
-/*---------
-–\‘¢‘Ì
+
+ï¼Šæ§‹é€ ä½“
 ---------*/
-/*2ŸŒ³ƒxƒNƒgƒ‹*/
+/*2æ¬¡å…ƒãƒ™ã‚¯ãƒˆãƒ«*/
 typedef struct Vecter2 {
 	float x;
 	float y;
 } Vector2;
-/*ƒvƒŒƒCƒ„[*/
+/*ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼*/
 typedef struct Player {
 	Vecter2 screenPos{};
 	Vecter2 size{};
