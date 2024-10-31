@@ -77,11 +77,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 		///
 		/// ↓描画処理ここから
-		
 		//プレイヤーの描画
 		switch (scene)
 		{
 		case TITLE:
+			Novice::ScreenPrintf(0, 0, "title");
 			break;
 		case GAMEPLAY:
 
@@ -91,7 +91,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			{
 				Novice::DrawBox(int(player.screenPos.x), int(player.screenPos.y), int(player.size.x), int(player.size.y), 0.0f, WHITE, kFillModeSolid);
 			}
-		
+			Novice::ScreenPrintf(0, 0, "play");
 
 			//プレイヤーの攻撃コマンド描画
 
@@ -99,8 +99,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	
 			break;
 		case GAMECLEAR:
+			Novice::ScreenPrintf(0, 0, "clear");
 			break;
 		case GAMEOVER:
+			Novice::ScreenPrintf(0, 0, "over");
 			break;
 		}
 		
