@@ -25,10 +25,17 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	int scene = TITLE;
 	//プレイヤーの描画
 
-	Player player;
+	Box player;
 	player.screenPos = { 600, 400 };
 	player.size = { 32.0f, 32.0f };
 	player.velocity = { 5, 5 };
+	player.isAlive = true;
+
+	//攻撃コマンドの変数
+	Box attckbutton;
+	attckbutton.screenPos = { 550.0f, 550.0f };
+	attckbutton.size = { 200.0f, 100.0f };
+
 
 	// ウィンドウの×ボタンが押されるまでループ
 	while (Novice::ProcessMessage() == 0) {
@@ -53,7 +60,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			}
 			break;
 		case GAMEPLAY:
-			playerMove(player, keys);
+
+		playerMove(player, keys);
+	
+			
 			break;
 		case GAMECLEAR:
 			break;
@@ -74,7 +84,19 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		case TITLE:
 			break;
 		case GAMEPLAY:
-			Novice::DrawBox(int(player.screenPos.x), int(player.screenPos.y), int(player.size.x), int(player.size.y), 0.0f, WHITE, kFillModeSolid);
+
+			//プレイヤーの描画
+
+			if (player.isAlive)
+			{
+				Novice::DrawBox(int(player.screenPos.x), int(player.screenPos.y), int(player.size.x), int(player.size.y), 0.0f, WHITE, kFillModeSolid);
+			}
+		
+
+			//プレイヤーの攻撃コマンド描画
+
+			Novice::DrawBox(int(attckbutton.screenPos.x), int(attckbutton.screenPos.y), int(attckbutton.size.x), int(attckbutton.size.y),0.0f, WHITE, kFillModeSolid);
+	
 			break;
 		case GAMECLEAR:
 			break;
