@@ -6,9 +6,6 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TD_02", "TD_02.vcxproj", "{7D297CAB-3ADF-49F0-AA09-C5A08FE983BC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ソリューション項目", "ソリューション項目", "{703B8DF0-9FDD-41B9-94F1-E782A86B146D}"
-	ProjectSection(SolutionItems) = preProject
-		move.h = move.h
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

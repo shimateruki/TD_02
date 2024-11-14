@@ -23,6 +23,9 @@
     <ClCompile Include="hitBox.cpp">
       <Filter>KamataEngine</Filter>
     </ClCompile>
+    <ClCompile Include="move.cpp">
+      <Filter>KamataEngine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="C:\KamataEngine\DirectXGame\audio\Audio.h">
@@ -108,5 +111,6 @@
     </ClInclude>
     <ClInclude Include="struct.h" />
     <ClInclude Include="hitBox.h" />
+    <ClInclude Include="move.h" />
   </ItemGroup>
 </Project>
